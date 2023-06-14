@@ -1,0 +1,33 @@
+1. To remove a remote git repo:
+git remote -v
+git remote rm origin
+
+
+2. To add a remote: 
+git remote add origin yourRemoteUrl 
+git push -u origin master
+
+
+# When we have an empty repository, to get started we will need to run these commands in our terminal.
+https://bitbucket.diasemi.com/users/ssingh/repos/perforcelistener/browse
+
+3. Configure Git for the first time
+git config --global user.name "Sany Singh"
+git config --global user.email "Sany.Singh@diasemi.com"
+
+4. If you want to simply clone this empty repository then run this command in your terminal.
+git clone https://bitbucket.diasemi.com/scm/~ssingh/perforcelistener.git
+
+5. If the code is ready to be pushed to this repository then run this in your terminal.
+cd existing-project
+git init
+git add --all
+git commit -m "Initial Commit"
+git remote add origin https://bitbucket.diasemi.com/scm/~ssingh/perforcelistener.git
+git push -u origin master
+
+6. If your code is already tracked by Git then set this repository as your "origin" to push to.
+cd existing-project
+git remote set-url origin https://bitbucket.diasemi.com/scm/~ssingh/perforcelistener.git
+git push -u origin --all
+git push origin --tags
