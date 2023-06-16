@@ -17,7 +17,7 @@ public class LogEventDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1868647L;
 	
-	private Long eventId;
+	private String eventId;
 	private String eventType;
 	private LocalDateTime timestamp;
 	private Long durationMs;
@@ -28,12 +28,14 @@ public class LogEventDTO implements Serializable {
 	private String objectId;
 	private String objectName;
 	private Long statusCode;
+	private String ipvId;
+	private String ipvName;
 	
 	
-	public Long getEventId() {
+	public String getEventId() {
 		return eventId;
 	}
-	public void setEventId(Long eventId) {
+	public void setEventId(String eventId) {
 		this.eventId = eventId;
 	}
 	public String getEventType() {
@@ -95,6 +97,18 @@ public class LogEventDTO implements Serializable {
 	}
 	public void setStatusCode(Long statusCode) {
 		this.statusCode = statusCode;
+	}
+	public String getIpvId() {
+		return ipvId;
+	}
+	public void setIpvId(String ipvId) {
+		this.ipvId = ipvId;
+	}
+	public String getIpvName() {
+		return ipvName;
+	}
+	public void setIpvName(String ipvName) {
+		this.ipvName = ipvName;
 	}
 	
 }

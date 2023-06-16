@@ -10,8 +10,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -30,12 +28,10 @@ public class LogEvents implements Serializable {
 	private static final long serialVersionUID = 18654667L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long eventId;
+	private String eventId;
 	private String eventType;
 	private Timestamp timestamp;
 	private Long durationMs;
-	//@Column(unique = true)
 	private String clientIpAddress;
 	private String component;
 	private String userId;
@@ -43,16 +39,18 @@ public class LogEvents implements Serializable {
 	private String objectId;
 	private String objectName;
 	private Long statusCode;
+	private String ipvId;
+	private String ipvName;
 	
 	@OneToOne(mappedBy="logEvents", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
 	private LogErrors logErrors;
 	
 	@Column(name = "event_id", nullable = false)
-	public Long getEventId() {
+	public String getEventId() {
 		return eventId;
 	}
-	public void setEventId(Long eventId) {
+	public void setEventId(String eventId) {
 		this.eventId = eventId;
 	}
 	
@@ -133,5 +131,23 @@ public class LogEvents implements Serializable {
 	public void setStatusCode(Long statusCode) {
 		this.statusCode = statusCode;
 	}
+
+	@Column(name = "ipv_id", nullable = false)
+	public String getIpvId() {
+		return ipvId;
+	}
+	public void setIpvId(String ipvId) {
+		this.ipvId = ipvId;
+	}
+	
+	@Column(name = "ipv_name", nullable = false)
+	public String getIpvName() {
+		return ipvName;
+	}
+	public void setIpvName(String ipvName) {
+		this.ipvName = ipvName;
+	}
+	
+	
 	
 }

@@ -3,6 +3,9 @@
  */
 package com.renesas.PerforceListener;
 
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -11,8 +14,13 @@ import org.springframework.data.redis.connection.RedisSentinelConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
+import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
+
+import com.renesas.service.LogEventService;
+import com.renesas.utility.DataMapperUtils;
+import com.renesas.utility.JsonUtils;
 
 /**
  * @author a5143522
@@ -23,19 +31,34 @@ import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 @Configuration
 public class RedisConfig {
 	
+	@Autowired
+	private JsonUtils jsonUtils;
+	
+	@Autowired 
+	private DataMapperUtils dataMapperUtils;
+	
+	@Autowired
+	private LogEventService logEventService;
+	
 	 /**
 	 * Redis message listener container 
 	 * 
 	 * This method creates a RedisMessageListenerContainer bean and configures it to use the Redis connection factory obtained from the RedisTemplate. 
 	 * It adds the messageListenerAdapter as the message listener for a specific channel.
+	 * 
+	 * To listen to Single or List of channel using Spring Boot and Spring Data Redis use ChannelTopic class, 
+	 * and to listen to multiple Redis channels use the PatternTopic class, using a pattern example "*".
 	 */
 	@Bean
 	public RedisMessageListenerContainer redisMessageListenerContainer(RedisConnectionFactory redisConnectionFactory,
 			MessageListenerAdapter messageListenerAdapter) {
 		RedisMessageListenerContainer container = new RedisMessageListenerContainer();
 		container.setConnectionFactory(redisConnectionFactory);
-		// Channel Name to subscribe the message
-		container.addMessageListener(messageListenerAdapter, new ChannelTopic("redis1")); 
+		// Single or List of Channel Name to subscribe the message
+		// container.addMessageListener(messageListenerAdapter, new ChannelTopic("redis")); 
+		
+		// Pattern to subscribe to multiple channels or use "*" to subscribe to all the channels.
+		container.addMessageListener(messageListenerAdapter, new PatternTopic("*")); 
 		return container;
 	}
 
@@ -47,7 +70,7 @@ public class RedisConfig {
      */
 	@Bean
 	public MessageListenerAdapter messageListenerAdapter() {
-		return new MessageListenerAdapter(new PerforceListenerApplication());
+		return new MessageListenerAdapter(new PerforceListenerApplication(jsonUtils, dataMapperUtils, logEventService));
 	}
 	
 	/**
@@ -62,9 +85,14 @@ public class RedisConfig {
 	@Bean
     public RedisConnectionFactory redisConnectionFactory() {
         RedisStandaloneConfiguration redisConfiguration = new RedisStandaloneConfiguration();
-        // Redis server hostname or IP address and port to connect
-        redisConfiguration.setHostName("DEU-5CG2232PP1.adwin.renesas.com");
+        // Local Machine Redis server hostname or IP address and port to connect
+        //redisConfiguration.setHostName("DEU-5CG2232PP1.adwin.renesas.com");
+        //redisConfiguration.setPort(6379);
+        
+        // Perforce Redis server hostname or IP address and port to connect
+        redisConfiguration.setHostName("10.24.29.155");
         redisConfiguration.setPort(6379);
+        
         // Authentication to connect to the Redis Server. Default value is admin:admin.
         //redisConfiguration.setUsername("admin");
         //redisConfiguration.setPassword("admin");
@@ -104,5 +132,5 @@ public class RedisConfig {
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         return redisTemplate;
     }
-
+	
 }

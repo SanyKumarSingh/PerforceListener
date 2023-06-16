@@ -40,11 +40,19 @@
 		</dependency>
 
 		<!-- h2 in memory database -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
+		</dependency> -->
+
+		<!-- Oracle database -->
+		<dependency>
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<!-- <version>19.3.0.0</version> -->
 		</dependency>
+
 
 		<!-- Test starter of Spring Boot for Unit Test -->
 		<dependency>

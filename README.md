@@ -14,6 +14,3 @@ Fetch All LogEvents - http://localhost:8080/api/v1/viewLogEvents
 
 POST Request -
 Add Log Events - http://localhost:8080/api/v1/addLogEvents
-
-
-MicroSoft Archieve for Redis - https://github.com/microsoftarchive/redis/releases
