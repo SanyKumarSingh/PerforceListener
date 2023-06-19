@@ -53,6 +53,7 @@ data.sql has the DDL statement and sample DML statement.
 application.properties is the configuration file.
 
 
+
 ########## Deployment on Windows Server #########
 
 Build the Spring Boot application: Use Maven as build tool to build this Spring Boot application. This will create an executable JAR file.
@@ -69,5 +70,57 @@ Deployable could be found at - C:\Users\a5143522\.m2\repository\com\renesas\Perf
 5. Run the application: Execute the following command to start the Spring Boot application with the in-memory Tomcat server
 
 C:\Users\a5143522\RenesasCodebase>java -jar PerforceListener-0.0.1-SNAPSHOT.jar
+
+6. Access the application: http://localhost:8080/api/v1/viewLogEvents
+
+
+########## To kill the Process on Windows Server ##########
+
+Find the process ID (PID): Open the Task Manager on the Windows server and go to the "Processes" tab. Look for the Java process associated with your Spring Boot application. Note down the process ID (PID) of the Java process.
+
+Open the Command Prompt on the Windows server.
+
+Stop the application: In the Command Prompt, execute the following command to stop the Spring Boot application:
+taskkill /F /PID <pid>
+
+Replace <pid> with the process ID (PID)
+
+C:\Users\a5143522>taskkill /F /PID 44112
+SUCCESS: The process with PID 44112 has been terminated.
+
+4. Verify the application is stopped: Check the Task Manager again to ensure that the Java process associated with your Spring Boot application is no longer running. Alternatively, try accessing the application's URL in a web browser to confirm that it is no longer accessible.
+
+
+
+########## Deployment to Linux Server ##########
+
+Build the Spring Boot application: Use Maven as build tool to build this Spring Boot application. This will create an executable JAR file.
+C:\Users\a5143522\eclipse-workspace\PerforceListener>mvn clean install
+
+Deployable could be found at - C:\Users\a5143522\.m2\repository\com\renesas\PerforceListener\0.0.1-SNAPSHOT\PerforceListener-0.0.1-SNAPSHOT.jar
+
+2. Copy the application files to the server: Copy the generated JAR file to the Linux server where you want to deploy the application. Place it in any directory of  choice.
+
+3. Install Java: Ensure that Java is installed on the Linux server. We can install OpenJDK using the package manager available for Linux distribution. example, on Ubuntu, we can use the following command: sudo apt-get install openjdk-11-jdk
+
+4. Start the application: Open a terminal on the Linux server and navigate to the directory where the application file (generated JAR) is copied.
+
+5. Run the application: Execute the following command to start the Spring Boot application with the in-memory Tomcat server
+
+java -jar PerforceListener-0.0.1-SNAPSHOT.jar
+
+6. Access the application: http://localhost:8080/api/v1/viewLogEvents
+
+
+########## To kill the Process on Linux Server ##########
+
+1. Find the process ID (PID): Open a terminal on the Linux server and execute the following command to list the running Java processes: 
+ps -ef | grep java  
+Look for the Java process associated with your Spring Boot application. Note down the process ID (PID) of the Java process.
+
+2. Stop the application: In the terminal, execute the following command to stop the Spring Boot application:  kill -9 <pid>
+Replace <pid> with the process ID (PID) you noted down in Step 1. The -9 option sends a SIGKILL signal to force the process to terminate.
+
+3. Verify the application is stopped: execute the ps -ef | grep java command again to ensure that the Java process associated with your Spring Boot application is no longer running. Alternatively, try accessing the application's URL in a web browser to confirm that it is no longer accessible.
 
 
