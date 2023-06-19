@@ -1,4 +1,4 @@
-# Perforce Listener Plugin 
+###### Perforce Listener Plugin ##########
 Listener plugin for Perforce Methodics (IPLM)
 
 Event Listener in Java Code here - https://github.com/SanyKumarSingh/PerforceListener
@@ -20,10 +20,7 @@ Add Log Events - http://localhost:8080/api/v1/addLogEvents
 Postman(Chrome Plugin) to test below REST API's - https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop/related?hl=en 
 
 
-
-Deployable after mvn clean install could be found at -C:\Users\a5143522\.m2\repository\com\renesas\PerforceListener\0.0.1-SNAPSHOT\PerforceListener-0.0.1-SNAPSHOT.pom
-
-
+###########  Code Details ###########
 
 RedisConfig.Java Class sets up the  message listener container and the message listener adapter.
 
@@ -54,3 +51,23 @@ LogEventRepository.java is the Interface that extends JpaRepository and is the r
 data.sql has the DDL statement and sample DML statement.
 
 application.properties is the configuration file.
+
+
+########## Deployment on Windows Server #########
+
+Build the Spring Boot application: Use Maven as build tool to build this Spring Boot application. This will create an executable JAR file.
+C:\Users\a5143522\eclipse-workspace\PerforceListener>mvn clean install
+
+Deployable could be found at - C:\Users\a5143522\.m2\repository\com\renesas\PerforceListener\0.0.1-SNAPSHOT\PerforceListener-0.0.1-SNAPSHOT.jar
+
+2. Copy the application files to the server: Copy the generated JAR file to the Windows server where you want to deploy the application. Place it in any directory of  choice.
+
+3. Install Java: Ensure that Java is installed on the Windows server. 
+
+4. Start the application: Open a command prompt or PowerShell window on the Windows server. Navigate to the directory where the application file (generated JAR) is copied.
+
+5. Run the application: Execute the following command to start the Spring Boot application with the in-memory Tomcat server
+
+C:\Users\a5143522\RenesasCodebase>java -jar PerforceListener-0.0.1-SNAPSHOT.jar
+
+
