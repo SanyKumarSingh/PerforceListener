@@ -94,15 +94,38 @@ SUCCESS: The process with PID 44112 has been terminated.
 
 ########## Deployment to Linux Server ##########
 
-Build the Spring Boot application: Use Maven as build tool to build this Spring Boot application. This will create an executable JAR file.
+1. Build the Spring Boot application: Use Maven as build tool to build this Spring Boot application. This will create an executable JAR file.
 C:\Users\a5143522\eclipse-workspace\PerforceListener>mvn clean install
 
 Deployable could be found at - C:\Users\a5143522\.m2\repository\com\renesas\PerforceListener\0.0.1-SNAPSHOT\PerforceListener-0.0.1-SNAPSHOT.jar
 
 2. Copy the application files to the server: Copy the generated JAR file to the Linux server where you want to deploy the application. Place it in any directory of  choice.
 
-3. Install Java: Ensure that Java is installed on the Linux server. We can install OpenJDK using the package manager available for Linux distribution. example, on Ubuntu, we can use the following command: sudo apt-get install openjdk-11-jdk
+scp <local_file_path> <username>@<server_ip>:<destination_directory>
 
+scp C:\Users\a5143522\RenesasCodebase\PerforceListener-0.0.1-SNAPSHOT.jar ssingh@slsrvcomp-01.diasemi.com:/users/ssingh/perforce
+
+3. Install Java: Ensure that Java is installed on the Linux server.
+
+Copy Java zip from local to Linux server in any directory of  choice.
+C:\Users\a5143522\RenesasCodebase>scp C:\Users\a5143522\RenesasCodebase\openlogic-openjdk-11.0.19+7-windows-x64.zip ssingh@slsrvcomp-01.diasemi.com:/users/ssingh/perforce
+
+Unzip the file
+[ssingh@slsrvcomp-01 ~/perforce]$ unzip openlogic-openjdk-11.0.19+7-windows-x64.zip
+Find the Linux distribution being used, based on the output of the uname -a command, it is clear that we are using Linux operating system you are using is CentOS 7.
+[ssingh@slsrvcomp-01 ~/perforce]$ uname -a
+Linux slsrvcomp-01 3.10.0-1160.el7.x86_64 #1 SMP Tue Aug 18 14:50:17 EDT 2020 x86_64 x86_64 x86_64 GNU/Linux
+[ssingh@slsrvcomp-01 ~/perforce]$
+
+We can install OpenJDK using the package manager available for Linux distribution. example, on Ubuntu, we can use the following command:
+[ssingh@slsrvcomp-01 ~/perforce]$  sudo yum install openlogic-openjdk-11.0.19+7-windows-x64
+Sorry, user ssingh is not allowed to execute '/bin/yum install openlogic-openjdk-11.0.19+7-windows-x64' as root on slsrvcomp-01.
+[ssingh@slsrvcomp-01 ~/perforce]$
+
+[icetest@slsrvcomp-01 ~]$ cd /users/ssingh/perforce
+[icetest@slsrvcomp-01 perforce]$ sudo yum install openlogic-openjdk-11.0.19+7-windows-x64
+Sorry, user icetest is not allowed to execute '/bin/yum install openlogic-openjdk-11.0.19+7-windows-x64' as root on slsrvcomp-01.
+[icetest@slsrvcomp-01 perforce]$
 4. Start the application: Open a terminal on the Linux server and navigate to the directory where the application file (generated JAR) is copied.
 
 5. Run the application: Execute the following command to start the Spring Boot application with the in-memory Tomcat server
