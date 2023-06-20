@@ -42,7 +42,6 @@ public class DataMapperUtils {
 		logEventDTO.setStatusCode(eventJSON.getStatus_code());
 		logEventDTO.setIpvId(eventJSON.getIpv_id());
 		logEventDTO.setIpvName(eventJSON.getIpv_name());
-		System.out.println("Event Id###&&&&&&&&&&#####&#&#&#&#&#&&#& " + logEventDTO.getEventId());
 		
 		return logEventDTO;
 	}

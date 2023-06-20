@@ -79,7 +79,7 @@ public class LogEventServiceImpl implements LogEventService {
 	@Override
 	@Transactional
 	public List<LogEventDTO> addLogEvents(List<LogEventDTO> logEventDTOs) throws DataAccessException {
-		
+		logger.info("Processing request to add Log Events to database");
 		List<LogEvents> logEvents = new ArrayList<LogEvents>();
 		logEventDTOs.forEach((logEventDTO) -> {
 			logEvents.add(dataMapperUtils.mapDtoToEntity(logEventDTO));

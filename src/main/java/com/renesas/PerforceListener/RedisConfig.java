@@ -5,6 +5,8 @@ package com.renesas.PerforceListener;
 
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +32,8 @@ import com.renesas.utility.JsonUtils;
  */
 @Configuration
 public class RedisConfig {
+	
+	private static final Logger logger = LoggerFactory.getLogger(RedisConfig.class);
 	
 	@Autowired
 	private JsonUtils jsonUtils;
@@ -59,6 +63,8 @@ public class RedisConfig {
 		
 		// Pattern to subscribe to multiple channels or use "*" to subscribe to all the channels.
 		container.addMessageListener(messageListenerAdapter, new PatternTopic("*")); 
+		logger.info("Listining to Pattern Topic *");
+        
 		return container;
 	}
 
@@ -92,6 +98,7 @@ public class RedisConfig {
         // Perforce Redis server hostname or IP address and port to connect
         redisConfiguration.setHostName("10.24.29.155");
         redisConfiguration.setPort(6379);
+        logger.info("Listining to host: "+ redisConfiguration.getHostName() + "on port: "+ redisConfiguration.getPort());
         
         // Authentication to connect to the Redis Server. Default value is admin:admin.
         //redisConfiguration.setUsername("admin");

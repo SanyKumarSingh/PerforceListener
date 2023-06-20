@@ -1,8 +1,7 @@
 ###### Perforce Listener Plugin ##########
 Listener plugin for Perforce Methodics (IPLM)
 
-Event Listener in Java Code here - https://github.com/SanyKumarSingh/PerforceListener
-git clone https://github.com/SanyKumarSingh/PerforceListener.git
+Event Listener in Java Code here - https://bitbucket.diasemi.com/users/ssingh/repos/perforcelistener/browse
 
 To execute this SpringBootApplication run Application.java main class, it will automatically start the application on embedded Apache Tomcat and InMemory H2 database. 
 
@@ -92,6 +91,8 @@ SUCCESS: The process with PID 44112 has been terminated.
 
 
 
+
+
 ########## Deployment to Linux Server ##########
 
 1. Build the Spring Boot application: Use Maven as build tool to build this Spring Boot application. This will create an executable JAR file.
@@ -135,6 +136,8 @@ java -jar PerforceListener-0.0.1-SNAPSHOT.jar
 6. Access the application: http://localhost:8080/api/v1/viewLogEvents
 
 
+
+
 ########## To kill the Process on Linux Server ##########
 
 1. Find the process ID (PID): Open a terminal on the Linux server and execute the following command to list the running Java processes: 
@@ -145,5 +148,3 @@ Look for the Java process associated with your Spring Boot application. Note dow
 Replace <pid> with the process ID (PID) you noted down in Step 1. The -9 option sends a SIGKILL signal to force the process to terminate.
 
 3. Verify the application is stopped: execute the ps -ef | grep java command again to ensure that the Java process associated with your Spring Boot application is no longer running. Alternatively, try accessing the application's URL in a web browser to confirm that it is no longer accessible.
-
-

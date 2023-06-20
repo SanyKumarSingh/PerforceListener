@@ -40,11 +40,7 @@ public class JsonUtils {
 		EventJSON eventDTO = null;
 		 try {
 	            eventDTO = objectMapper.readValue(messageBody, EventJSON.class);
-
 	            // Access the JSON to read the fields of the Java object
-	            System.out.println("eventId: " + eventDTO.getEvent_id());
-	            System.out.println("eventType: " + eventDTO.getEvent_type());
-	            System.out.println("timestamp################################# "+ eventDTO.getTimestamp());
 	        } catch (Exception exception) {
 	        	logger.error("The string does not contain valid JSON data. Exception while converting String To JSON.", exception.getMessage());
 	        }

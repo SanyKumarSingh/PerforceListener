@@ -44,10 +44,10 @@ public class PerforceListenerApplication implements MessageListener {
 	public void onMessage(Message message, byte[] pattern) {
 		String channel = new String(message.getChannel());
 		String messageBody = new String(message.getBody());
-		System.out.println("Received message: " + messageBody + " from channel: " + channel);
+		logger.info("Received message: " + messageBody + " from channel: " + channel);
 		
 		if(pattern != null) {
-			System.out.println("*********Pattern Message******************");
+			logger.info("Received Pattern Message, Continue!!");
 			if(jsonUtils.isValidJson(messageBody)) {
 				List<LogEventDTO> logEventDTOs = new ArrayList<LogEventDTO>();
 				
@@ -57,15 +57,15 @@ public class PerforceListenerApplication implements MessageListener {
 				logger.info("Map the data from EventJSON To LogEventDTO.");
 				logEventDTOs.add(dataMapperUtils.mapEventJsonToDto(eventJSON));
 				
-				logger.info("Insert Record into Database");
 				try {
+					logger.info("Insert Record into Database");
 					logEventService.addLogEvents(logEventDTOs);
 				} catch (DataAccessException exception) {
 					logger.error("Log Event details could not be saved, there seems to be an issue with the Database", exception.getMessage());
 				}
 			}
 		} else {
-			System.out.println("$$$$$$$$$$$$$$$$$$$$ Regular Message $$$$$$$$$$$$$$$$$$");
+			logger.info("Received Regular Message, Ignore!!");
 		}
 		
 	}
